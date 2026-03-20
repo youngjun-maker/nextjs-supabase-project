@@ -2,16 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Calendar, Plus, User } from "lucide-react";
+import { Calendar, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+// 참여자용 네비게이션: "새 이벤트" 탭 제거, "내 이벤트" -> "참여 이벤트"
 const navItems = [
-  { href: "/events", label: "내 이벤트", icon: Calendar },
-  { href: "/events/new", label: "새 이벤트", icon: Plus },
+  { href: "/events", label: "참여 이벤트", icon: Calendar },
   { href: "/profile", label: "프로필", icon: User },
 ];
 
-export function MobileNav() {
+export function MobileNavParticipant() {
   const pathname = usePathname();
 
   return (
@@ -20,7 +20,7 @@ export function MobileNav() {
         {navItems.map(({ href, label, icon: Icon }) => {
           const isActive =
             href === "/events"
-              ? pathname === "/events" || (pathname.startsWith("/events") && pathname !== "/events/new")
+              ? pathname === "/events" || pathname.startsWith("/events/")
               : pathname === href || pathname.startsWith(href + "/");
 
           return (

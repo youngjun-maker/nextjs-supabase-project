@@ -1,3 +1,9 @@
+export const dynamic = "force-dynamic";
+
+import { EventDetailView } from "@/components/features/events/event-detail-view";
+import { ParticipantEventDetailView } from "@/components/features/events/participant-event-detail-view";
+import { DEMO_ROLE } from "@/lib/demo-config";
+
 interface EventDetailPageProps {
   params: Promise<{ id: string }>;
 }
@@ -5,12 +11,9 @@ interface EventDetailPageProps {
 export default async function EventDetailPage({ params }: EventDetailPageProps) {
   const { id } = await params;
 
-  return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-        이벤트 상세
-      </h1>
-      <p className="mt-2 text-gray-500">이벤트 ID: {id}</p>
-    </div>
-  );
+  // DEMO_ROLE에 따라 주최자/참여자 상세 뷰 분기
+  if (DEMO_ROLE === "participant") {
+    return <ParticipantEventDetailView id={id} />;
+  }
+  return <EventDetailView id={id} />;
 }
